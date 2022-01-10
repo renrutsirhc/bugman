@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Level from './Level.js';
+import Canvas from './Canvas.js';
 
 class Game extends React.Component {
 	constructor(props) {
@@ -13,7 +13,7 @@ class Game extends React.Component {
 	render() {
 		return (
 			<div id="level-container">
-				<Level />
+				<Canvas />
 			</div>
 		);
 
