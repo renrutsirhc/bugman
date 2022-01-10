@@ -29,7 +29,7 @@ class Level {
 			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 		];
-		this.gameObjects = [...Array(22)].map(e => Array(19));
+		this.gameObjects = [];
 		this.buildLevel(ctx);
 		
 	}
@@ -39,24 +39,24 @@ class Level {
 			for (let i = 0; i < 19; i++) {
 				switch (this.map[j][i]) {
 					case 0:
-						this.gameObjects[j][i] = new Wall(ctx, i, j, this.squareSize);
+						this.gameObjects.push(new Wall(ctx, i, j, this.squareSize));
 						break;
 					case 1:
 						//this.gameObjects[j][i] = new Food(ctx);
-						this.gameObjects[j][i] = null;
+						
 						break;
 					case 2:
-						this.gameObjects[j][i] = null;
+						
 						break;
 					case 3:
 						//this.gameObjects[j][i] = new Enemy(ctx);
-						this.gameObjects[j][i] = null;
+						
 						break;
 					case 4:
-						this.gameObjects[j][i] = null;
+						
 						break;
 					case 5:
-						this.gameObjects[j][i] = new Player(ctx, i, j, this.squareSize);
+						this.gameObjects.push(new Player(ctx, i, j, this.squareSize));
 						break;
                 }
 			}
@@ -66,22 +66,14 @@ class Level {
 
 
     update() {
-		for (let j = 0; j < 22; j++) {
-			for (let i = 0; i < 19; i++) {
-				if (this.gameObjects[j][i] != null) {
-					this.gameObjects[j][i].update();
-                }
-			}
-		}
+		for (let k = 0; k < this.gameObjects.length; k++) {
+			this.gameObjects[k].update();
+        }
     }
 
     draw() {
-		for (let j = 0; j < 22; j++) {
-			for (let i = 0; i < 19; i++) {
-				if (this.gameObjects[j][i] != null) {
-					this.gameObjects[j][i].draw();
-				}
-			}
+		for (let k = 0; k < this.gameObjects.length; k++) {
+			this.gameObjects[k].draw();
 		}
     }
 
