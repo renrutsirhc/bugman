@@ -12,8 +12,8 @@ class Canvas extends React.Component {
             canvas: null,
             ctx: null,
             level: null,
-            width: 800,
-            height: 500,
+            width: 608,
+            height: 704,
         }
 
         this.canvas = null;
@@ -42,6 +42,8 @@ class Canvas extends React.Component {
         level.update();
         //draw the level object
         level.draw();
+        //restore the state of the canvas
+        ctx.restore();
 
     }
 

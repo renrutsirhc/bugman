@@ -11,6 +11,7 @@
     <Script Include="**" Exclude="*.esproj;**\node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\Assets\" />
     <Folder Include="src\Styles\" />
     <Folder Include="src\ObjectBehaviors\" />
   </ItemGroup>
