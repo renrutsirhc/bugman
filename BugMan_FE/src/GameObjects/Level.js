@@ -39,7 +39,7 @@ class Level {
 			for (let i = 0; i < 19; i++) {
 				switch (this.map[j][i]) {
 					case 0:
-						this.gameObjects.push(new Wall(ctx, i, j, this.squareSize));
+						this.gameObjects.push(new Wall(ctx, this, i, j, this.squareSize));
 						break;
 					case 1:
 						//this.gameObjects[j][i] = new Food(ctx);
@@ -56,7 +56,7 @@ class Level {
 						
 						break;
 					case 5:
-						this.gameObjects.push(new Player(ctx, i, j, this.squareSize));
+						this.gameObjects.push(new Player(ctx, this, i, j, this.squareSize));
 						break;
                 }
 			}

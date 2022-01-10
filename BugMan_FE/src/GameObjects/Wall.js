@@ -1,14 +1,9 @@
+import GameObject from './GameObject.js'
 import png from '../Assets/wall-32.png';
 
-class Wall {
-    constructor(ctx, i, j, squareSize) {
-        this.ctx = ctx;
-        this.i = i;
-        this.j = j;
-        this.x = i * squareSize;
-        this.y = j * squareSize;
-        this.squareSize = squareSize;
-        this.sprite = new Image();
+class Wall extends GameObject {
+    constructor(ctx, level, i, j, squareSize) {
+        super(ctx, level, i, j, squareSize);
         this.sprite.src = png;
     }
 

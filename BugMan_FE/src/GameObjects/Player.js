@@ -1,16 +1,11 @@
+import GameObject from './GameObject.js'
 import png from '../Assets/ant-32.png';
 
-class Player {
+class Player extends GameObject{
 
-    constructor(ctx, i, j, squareSize) {
-        this.ctx = ctx;
-        this.i = i;
-        this.j = j;
-        this.x = i * squareSize;
-        this.y = j * squareSize;
-        this.squareSize = squareSize;
-        document.addEventListener("keydown", this.handleKeyDown)
-        this.sprite = new Image();
+    constructor(ctx, level, i, j, squareSize) {
+        super(ctx, level, i, j, squareSize);
+        document.addEventListener("keydown", this.handleKeyDown);
         this.sprite.src = png;
         this.rotation = 0;
     }
