@@ -1,16 +1,18 @@
-import Directions from '../Constants/Constants.js'
 import GameObject from './GameObject.js'
 import MoveComponent from '../GameComponents/MoveComponent.js'
 import RandomDirectionComponent from '../GameComponents/RandomDirectionComponent.js'
 import PathDirectionComponent from '../GameComponents/PathDirectionComponent.js'
 import EatPlayerComponent from '../GameComponents/EatPlayerComponent.js'
+import SmellPlayerComponent from '../GameComponents/SmellPlayerComponent.js'
 import png from '../Assets/grasshopper-32.png';
 
 class Grasshopper extends GameObject {
     constructor(ctx, level, i, j, squareSize) {
         super(ctx, level, i, j, squareSize);
         this.sprite.src = png;
+        this.canSmellPlayer = false;
 
+        this.components.push(new SmellPlayerComponent(level, this));
         this.components.push(new RandomDirectionComponent(level, this));
         this.components.push(new MoveComponent(level, this));
         this.components.push(new EatPlayerComponent(level, this));

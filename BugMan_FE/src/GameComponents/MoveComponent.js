@@ -14,38 +14,56 @@ class MoveComponent extends GameComponent{
             switch (this.owner.direction) {
                 case Directions.Left:
                     if (this.canMove()) {
-                        interval = setInterval(() => {
-                            this.owner.x -= 1;
-                            k += 1;
-                            if (k == 32) {
-                                clearInterval(interval);
-                            }
-                        }, 8)
-                        this.owner.i -= 1;
+                        if (this.owner.i - 1 < 0) {
+                            //player appears at the other side of the map
+                            this.owner.i = this.level.width - 1;
+                            this.owner.x = this.owner.i * this.level.squareSize;
+                        } else {
+                            interval = setInterval(() => {
+                                this.owner.x -= 1;
+                                k += 1;
+                                if (k == 32) {
+                                    clearInterval(interval);
+                                }
+                            }, 8)
+                            this.owner.i -= 1;
+                        }
                     }
                     break;
                 case Directions.Up:
                     if (this.canMove()) {
-                        interval = setInterval(() => {
-                            this.owner.y -= 1;
-                            k += 1;
-                            if (k == 32) {
-                                clearInterval(interval);
-                            }
-                        }, 8)
-                        this.owner.j -= 1;
+                        if (this.owner.j - 1 < 0) {
+                            //player appears at the other side of the map
+                            this.owner.j = this.level.height - 1;
+                            this.owner.y = this.owner.j * this.level.squareSize;
+                        } else {
+                            interval = setInterval(() => {
+                                this.owner.y -= 1;
+                                k += 1;
+                                if (k == 32) {
+                                    clearInterval(interval);
+                                }
+                            }, 8)
+                            this.owner.j -= 1;
+                        }
                     }
                     break;
                 case Directions.Right:
                     if (this.canMove()) {
-                        interval = setInterval(() => {
-                            this.owner.x += 1;
-                            k += 1;
-                            if (k == 32) {
-                                clearInterval(interval);
-                            }
-                        }, 8)
-                        this.owner.i += 1;
+                        if (this.owner.i >= this.level.width -1) {
+                            //player appears at the other side of the map
+                            this.owner.i = 0;
+                            this.owner.x = this.owner.i * this.level.squareSize;
+                        } else {
+                            interval = setInterval(() => {
+                                this.owner.x += 1;
+                                k += 1;
+                                if (k == 32) {
+                                    clearInterval(interval);
+                                }
+                            }, 8)
+                            this.owner.i += 1;
+                        }
                     }
                     break;
                 case Directions.Down:
