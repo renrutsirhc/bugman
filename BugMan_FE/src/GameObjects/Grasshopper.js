@@ -2,6 +2,7 @@ import Directions from '../Constants/Constants.js'
 import GameObject from './GameObject.js'
 import MoveComponent from '../GameComponents/MoveComponent.js'
 import RandomDirectionComponent from '../GameComponents/RandomDirectionComponent.js'
+import PathDirectionComponent from '../GameComponents/PathDirectionComponent.js'
 import EatPlayerComponent from '../GameComponents/EatPlayerComponent.js'
 import png from '../Assets/grasshopper-32.png';
 
