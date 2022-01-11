@@ -40,10 +40,7 @@ class PathDirectionComponent extends GameComponent {
             this.owner.direction = Directions.Down;
             this.owner.isMoving = true;
             return;
-        }
-        
-
-        
+        }    
     }
 
     getShortestPath() {
