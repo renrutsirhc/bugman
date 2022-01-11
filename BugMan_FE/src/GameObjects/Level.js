@@ -1,5 +1,6 @@
 import Player from './Player.js'
 import Wall from './Wall.js'
+import Food from './Food.js'
 
 class Level {
     constructor(ctx) {
@@ -29,8 +30,11 @@ class Level {
 			[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 		];
+		this.height = this.map.length;
+		this.width = this.map[0].length;
 		this.gameObjects = [];
 		this.buildLevel(ctx);
+		this.score = 0;
 		
 	}
 
@@ -42,7 +46,7 @@ class Level {
 						this.gameObjects.push(new Wall(ctx, this, i, j, this.squareSize));
 						break;
 					case 1:
-						//this.gameObjects[j][i] = new Food(ctx);
+						this.gameObjects.push(new Food(ctx, this, i, j, this.squareSize));
 						
 						break;
 					case 2:
@@ -69,6 +73,15 @@ class Level {
 		for (let k = 0; k < this.gameObjects.length; k++) {
 			this.gameObjects[k].update();
         }
+	}
+
+	hasWon() {
+		for (let k = 0; k < this.gameObjects.length; k++) {
+			if (this.gameObjects[k] instanceof Food) {
+				return false;
+            }
+		}
+		return true;
     }
 
     draw() {

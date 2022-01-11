@@ -1,4 +1,7 @@
+import Directions from '../Constants/Constants.js'
 import GameObject from './GameObject.js'
+import MoveComponent from '../GameComponents/MoveComponent.js'
+import EatFoodComponent from '../GameComponents/EatFoodComponent.js'
 import png from '../Assets/ant-32.png';
 
 class Player extends GameObject{
@@ -7,9 +10,11 @@ class Player extends GameObject{
         super(ctx, level, i, j, squareSize);
         document.addEventListener("keydown", this.handleKeyDown);
         this.sprite.src = png;
-        this.rotation = 0;
+        this.components.push(new MoveComponent(level, this));
+        this.components.push(new EatFoodComponent(level, this));
     }
 
+    //could move this into a component?
     handleKeyDown = (event) => {
         let interval;
         let k = 0;
@@ -17,54 +22,26 @@ class Player extends GameObject{
             case 37:
             case 65:
                 //left
-                this.rotation = 270;
-                interval = setInterval(() => {
-                    this.x -= 1;
-                    k += 1;
-                    if (k == 32) {
-                        clearInterval(interval);
-                    }
-                }, 8)
-                this.i -= 1;
+                this.direction = Directions.Left;
+                this.isMoving = true;
                 break;
             case 38:
             case 87:
                 //up
-                this.rotation = 0;
-                interval = setInterval(() => {
-                    this.y -= 1;
-                    k += 1;
-                    if (k == 32) {
-                        clearInterval(interval);
-                    }
-                }, 8)
-                this.j -= 1;
+                this.direction = Directions.Up;
+                this.isMoving = true;
                 break;
             case 39:
             case 68:
                 //right
-                this.rotation = 90;
-                interval = setInterval(() => {
-                    this.x += 1;
-                    k += 1;
-                    if (k == 32) {
-                        clearInterval(interval);
-                    }
-                }, 8)
-                this.i += 1;
+                this.direction = Directions.Right;
+                this.isMoving = true;
                 break;
             case 40:
             case 83:
                 //down
-                this.rotation = 180;
-                interval = setInterval(() => {
-                    this.y += 1;
-                    k += 1;
-                    if (k == 32) {
-                        clearInterval(interval);
-                    }
-                }, 8)
-                this.j += 1;
+                this.direction = Directions.Down;
+                this.isMoving = true;
                 break;
         };
 
@@ -72,11 +49,13 @@ class Player extends GameObject{
     }
 
     update() {
-
+        for (let k = 0; k < this.components.length; k++) {
+            this.components[k].update();
+        }
     }
 
     draw() {
-        this.drawRotated(this.sprite, this.x, this.y, this.rotation);
+        this.drawRotated(this.sprite, this.x, this.y, this.direction);
     }
 
     drawRotated(image, x, y, rotation) {

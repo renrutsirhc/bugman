@@ -1,3 +1,4 @@
+import Directions from '../Constants/Constants.js'
 class GameObject {
     static nextId = 0;
     constructor(ctx, level, i, j, squareSize) {
@@ -10,6 +11,9 @@ class GameObject {
         this.y = j * squareSize;
         this.squareSize = squareSize;
         this.sprite = new Image();
+        this.components = [];
+        this.direction = Directions.Up;
+        this.isMoving = false;
     }
 
     setId() {
