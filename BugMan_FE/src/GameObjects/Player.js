@@ -2,6 +2,7 @@ import Directions from '../Constants/Constants.js'
 import GameObject from './GameObject.js'
 import MoveComponent from '../GameComponents/MoveComponent.js'
 import EatFoodComponent from '../GameComponents/EatFoodComponent.js'
+import EatPillComponent from '../GameComponents/EatPillComponent.js'
 import png from '../Assets/ant-32.png';
 
 class Player extends GameObject{
@@ -12,6 +13,7 @@ class Player extends GameObject{
         this.sprite.src = png;
         this.components.push(new MoveComponent(level, this));
         this.components.push(new EatFoodComponent(level, this));
+        this.components.push(new EatPillComponent(level, this));
     }
 
     //could move this into a component?
