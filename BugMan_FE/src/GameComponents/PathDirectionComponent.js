@@ -9,7 +9,7 @@ class PathDirectionComponent extends GameComponent {
     }
 
     update() {
-        let rand = Math.random() * 16;
+        let rand = Math.random() * 24;
         rand = Math.trunc(rand);
         if (rand == 0) {
             this.getDirection();
@@ -43,9 +43,10 @@ class PathDirectionComponent extends GameComponent {
         }    
     }
 
+    //bfs algorithm to find shortest path between the owner of this component and the player
     getShortestPath() {
         let queue = [];
-        //initialise viseted grid with false values
+        //initialise visited grid with false values
         let visited = [...Array(this.level.height)].map(e => Array(this.level.width).fill(false));
         let playerI = this.getPlayerI();
         let playerJ = this.getPlayerJ();

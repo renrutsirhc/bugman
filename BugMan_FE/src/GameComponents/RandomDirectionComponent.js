@@ -9,21 +9,26 @@ class RandomDirectionComponent extends GameComponent {
     }
 
     update() {
-        let possibleDirections = [Directions.Left, Directions.Up, Directions.Right, Directions.Down];
-        this.generateDirections(possibleDirections);
-
-        let rand = Math.random() * 16;
+        let rand = Math.random() * 24;
         rand = Math.trunc(rand);
         if (rand == 0) {
-            rand = Math.random() * possibleDirections.length;
-            rand = Math.trunc(rand);
-            this.owner.direction = possibleDirections[rand];
-            this.owner.isMoving = true;
+            this.getDirection();
         }
     }
 
+    getDirection() {
+        let possibleDirections = this.generateDirections();
 
-    generateDirections(possibleDirections) {
+        let rand = Math.random() * possibleDirections.length;
+        rand = Math.trunc(rand);
+        this.owner.direction = possibleDirections[rand];
+        this.owner.isMoving = true;
+    }
+
+
+    generateDirections() {
+        //starts with all 4 possible directions and removes them if they are not possible
+        let possibleDirections = [Directions.Left, Directions.Up, Directions.Right, Directions.Down];
         for (let k = 0; k < this.level.gameObjects.length; k++) {
             let gameObject = this.level.gameObjects[k];
             if (gameObject instanceof Wall) {
@@ -51,6 +56,7 @@ class RandomDirectionComponent extends GameComponent {
                 }
             }
         }
+        return possibleDirections;
     }
 }
 
