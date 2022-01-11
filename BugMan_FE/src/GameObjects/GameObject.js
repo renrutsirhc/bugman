@@ -20,6 +20,12 @@ class GameObject {
         GameObject.nextId += 1;
         this.id = GameObject.nextId;
     }
+
+    update() {
+        for (let k = 0; k < this.components.length; k++) {
+            this.components[k].update();
+        }
+    }
 }
 
 export default GameObject

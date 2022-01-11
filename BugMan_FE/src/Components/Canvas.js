@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Level from '../GameObjects/Level.js'
 import Won from './Won.js'
+import Lost from './Lost.js'
 
 
 class Canvas extends React.Component {
@@ -13,6 +14,7 @@ class Canvas extends React.Component {
             width: 0,
             height: 0,
             hasWon: false,
+            hasLost: false,
         }
 
         this.canvas = null;
@@ -55,19 +57,33 @@ class Canvas extends React.Component {
         //restore the state of the canvas
         this.ctx.restore();
 
-        if (this.level.hasWon()) {
+        if (this.level.hasWon) {
             this.setState({
                 hasWon: true
+            });
+        }
+
+        if (this.level.hasLost) {
+            this.setState({
+                hasLost: true
             });
         }
     }
 
     render() {
+
         if (this.state.hasWon) {
             //has won so return the won screen
             return (
                 <div id="won-container">
                     <Won />
+                </div>
+            );
+        }
+        if (this.state.hasLost) {
+            return (
+                <div id="lost-container">
+                    <Lost />
                 </div>
             );
         }

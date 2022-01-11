@@ -48,11 +48,6 @@ class Player extends GameObject{
         console.log("X: " + this.x + " Y: " + this.y);
     }
 
-    update() {
-        for (let k = 0; k < this.components.length; k++) {
-            this.components[k].update();
-        }
-    }
 
     draw() {
         this.drawRotated(this.sprite, this.x, this.y, this.direction);

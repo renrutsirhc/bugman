@@ -1,6 +1,7 @@
 import Player from './Player.js'
 import Wall from './Wall.js'
 import Food from './Food.js'
+import Grasshopper from './Grasshopper.js'
 
 class Level {
     constructor(ctx) {
@@ -35,6 +36,8 @@ class Level {
 		this.gameObjects = [];
 		this.buildLevel(ctx);
 		this.score = 0;
+		this.hasLost = false;
+		this.hasWon = false;
 		
 	}
 
@@ -46,15 +49,12 @@ class Level {
 						this.gameObjects.push(new Wall(ctx, this, i, j, this.squareSize));
 						break;
 					case 1:
-						this.gameObjects.push(new Food(ctx, this, i, j, this.squareSize));
-						
+						this.gameObjects.push(new Food(ctx, this, i, j, this.squareSize));						
 						break;
-					case 2:
-						
+					case 2:						
 						break;
 					case 3:
-						//this.gameObjects[j][i] = new Enemy(ctx);
-						
+						this.gameObjects.push(new Grasshopper(ctx, this, i, j, this.squareSize));						
 						break;
 					case 4:
 						
@@ -74,15 +74,6 @@ class Level {
 			this.gameObjects[k].update();
         }
 	}
-
-	hasWon() {
-		for (let k = 0; k < this.gameObjects.length; k++) {
-			if (this.gameObjects[k] instanceof Food) {
-				return false;
-            }
-		}
-		return true;
-    }
 
     draw() {
 		for (let k = 0; k < this.gameObjects.length; k++) {

@@ -14,6 +14,18 @@ class EatFoodComponent extends GameComponent {
                 this.level.score += 1;
             }
         }
+        if (this.hasWon()) {
+            this.level.hasWon = true;
+        }
+    }
+
+    hasWon() {
+        for (let k = 0; k < this.level.gameObjects.length; k++) {
+            if (this.level.gameObjects[k] instanceof Food) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 export default EatFoodComponent;
