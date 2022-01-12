@@ -68,14 +68,20 @@ class MoveComponent extends GameComponent{
                     break;
                 case Directions.Down:
                     if (this.canMove()) {
-                        interval = setInterval(() => {
-                            this.owner.y += 1;
-                            k += 1;
-                            if (k == 32) {
-                                clearInterval(interval);
-                            }
-                        }, 8)
-                        this.owner.j += 1;
+                        if (this.owner.j >= this.level.height - 1) {
+                            //player appears at the other side of the map
+                            this.owner.j = 0;
+                            this.owner.y = this.owner.j * this.level.squareSize;
+                        } else {
+                            interval = setInterval(() => {
+                                this.owner.y += 1;
+                                k += 1;
+                                if (k == 32) {
+                                    clearInterval(interval);
+                                }
+                            }, 8)
+                            this.owner.j += 1;
+                        }
                     }
                     break;
             }

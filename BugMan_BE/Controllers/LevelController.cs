@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BugMan_BE.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class LevelController : ControllerBase
     {
         private readonly ILogger<LevelController> _logger;
@@ -14,8 +16,9 @@ namespace BugMan_BE.Controllers
         }
 
         [HttpGet(Name = "GetLevel")]
-        public ActionResult<Level> Get(int levelNumber)
+        public ActionResult<Level> Get([FromQuery(Name = "level")] int levelNumber)
         {
+            //from query is used to specify the query string component name
             return DBAccess.getLevel(levelNumber);
 
         }

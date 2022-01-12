@@ -42,7 +42,9 @@ class Game extends React.Component {
         })
     }
     handleNextLevel() {
-        //needs to advance the level number
+        this.setState((state) => ({
+            levelNumber: state.levelNumber + 1
+        }));
     }
 
     render() {

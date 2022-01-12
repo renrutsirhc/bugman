@@ -10,13 +10,14 @@ class Player extends GameObject{
     constructor(ctx, level, i, j, squareSize) {
         super(ctx, level, i, j, squareSize);
         document.addEventListener("keydown", this.handleKeyDown);
+        document.addEventListener("keyup", this.handleKeyUp);
         this.sprite.src = png;
         this.components.push(new MoveComponent(level, this));
         this.components.push(new EatFoodComponent(level, this));
         this.components.push(new EatPillComponent(level, this));
     }
 
-    //could move this into a component?
+
     handleKeyDown = (event) => {
         let interval;
         let k = 0;
@@ -48,6 +49,10 @@ class Player extends GameObject{
         };
 
         console.log("X: " + this.x + " Y: " + this.y);
+    }
+
+    handleKeyUp = (event) => {
+        this.isMoving = false;
     }
 
 
