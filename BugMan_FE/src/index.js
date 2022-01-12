@@ -8,7 +8,6 @@ ReactDOM.render(
 
     <React.StrictMode>
         <div>
-            <h1>Hello, world!</h1>
             <App />
         </div>
     </React.StrictMode>,

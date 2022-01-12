@@ -1,0 +1,30 @@
+h1 {
+    color: #edc939;
+    font-family: 'Patrick Hand', cursive;
+    text-align: center;
+}
+
+button {
+    background-color: #edc939;
+    border-radius: 12px;
+    border-style: none;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 16px;
+    padding: 8px;
+    min-width: 100px;
+    margin: 0 auto;
+    display: block;
+}
+
+    button:hover {
+        background-color: #f2d349;
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+
+    button:focus {
+        box-shadow: none;
+    }
+
+html {
+    background-color: #4f4f4f;
+}

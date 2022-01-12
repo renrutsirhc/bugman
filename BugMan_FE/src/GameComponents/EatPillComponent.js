@@ -21,7 +21,7 @@ class EatPillComponent extends GameComponent {
             let gameObject = this.level.gameObjects[k];
             if (gameObject instanceof Pill && gameObject.i == this.owner.i && gameObject.j == this.owner.j) {
                 this.level.gameObjects.splice(k, 1);
-                this.level.score += 20;
+                this.level.updateScore(20);
                 this.pillEaten();
 
             }

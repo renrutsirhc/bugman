@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Level from '../GameObjects/Level.js'
-import Won from './Won.js'
-import Lost from './Lost.js'
+import '../Styles/Canvas.css';
 
 
 class Canvas extends React.Component {
@@ -15,15 +14,26 @@ class Canvas extends React.Component {
             height: 0,
             handleWon: props.handleWon,
             handleLost: props.handleLost,
+            handleUpdateScore: props.handleUpdateScore,
+            handleUpdateEnemies: props.handleUpdateEnemies,
             levelNumber: props.levelNumber,
             isLoaded: false,
             error: null,
+
 
         }
 
         this.canvas = null;
         this.ctx = null;
         this.level = null;
+    }
+
+    handleUpdateScore(increment) {
+        this.state.handleUpdateScore(increment);
+    }
+
+    handleUpdateEnemies(increment) {
+        this.state.handleUpdateEnemies(increment);
     }
 
     componentDidMount() {
@@ -50,7 +60,7 @@ class Canvas extends React.Component {
                 this.ctx = this.canvas.getContext('2d');
 
                 //and pass the level data into the level object in the constructor - will need to modify the level object to accept this
-                this.level = new Level(this.ctx, data.width, data.height, data.data);
+                this.level = new Level(this.ctx, data.width, data.height, data.data, this);
                 this.setState({
                     width: this.level.width * this.level.squareSize,
                     height: this.level.height * this.level.squareSize,
@@ -130,10 +140,6 @@ class Canvas extends React.Component {
                     ref={this.state.canvasRef}
                     width={this.state.width}
                     height={this.state.height}
-                    style={{
-                        border: '2px solid #000',
-                        marginTop: 10,
-                    }}
                 >
                 </canvas>
             </div>

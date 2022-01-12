@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import ScoreBar from './ScoreBar.js';
 import Canvas from './Canvas.js';
 import Won from './Won.js';
 import Lost from './Lost.js';
 import Start from './Start.js';
+import '../Styles/Game.css';
 
 class Game extends React.Component {
     constructor(props) {
@@ -14,12 +16,21 @@ class Game extends React.Component {
             hasLost: false,
             hasStarted: false,
             levelNumber: 1,
+            enemies: 0,
+            levelScore: 0,
+            totalScore: 0,
+            confirmedTotalScore:0,
         }
+
+
 
         this.handleLost = this.handleLost.bind(this);
         this.handleWon = this.handleWon.bind(this);
         this.handleStart = this.handleStart.bind(this);
+        this.handleSameLevel = this.handleSameLevel.bind(this);
         this.handleNextLevel = this.handleNextLevel.bind(this);
+        this.handleUpdateScore = this.handleUpdateScore.bind(this);
+        this.handleUpdateEnemies = this.handleUpdateEnemies.bind(this);
     }
 
     handleLost() {
@@ -29,9 +40,10 @@ class Game extends React.Component {
     }
 
     handleWon() {
-        this.setState({
-            hasWon: true
-        });
+        this.setState((state) => ({
+            hasWon: true,
+            confirmedTotalScore: state.totalScore,
+        }));
     }
 
     handleStart() {
@@ -41,22 +53,47 @@ class Game extends React.Component {
             hasLost: false,
         })
     }
-    handleNextLevel() {
+
+    handleSameLevel() {
         this.setState((state) => ({
-            levelNumber: state.levelNumber + 1
+            totalScore: state.totalScore - state.levelScore,
+            levelScore: 0,
+            enemies: 0,
         }));
     }
+
+    handleNextLevel() {
+        this.setState((state) => ({
+            levelNumber: state.levelNumber + 1,
+            levelScore: 0,
+            enemies: 0,
+        }));
+    }
+
+    handleUpdateScore(increment) {
+        this.setState((state) => ({
+            levelScore: state.levelScore + increment,
+            totalScore: state.totalScore + increment,
+        }));
+    }
+
+    handleUpdateEnemies(increment) {
+        this.setState((state) => ({
+            enemies: state.enemies + increment,
+        }));
+    }
+
 
     render() {
         if (this.state.hasWon) {
             //has won so return the won screen
             return (
-                <Won handleStart={this.handleStart} handleNextLevel={this.handleNextLevel}/>
+                <Won handleStart={this.handleStart} handleNextLevel={this.handleNextLevel} levelScore={this.state.levelScore} totalScore={this.state.totalScore} />
             );
         }
         if (this.state.hasLost) {
             return (
-                <Lost handleStart={this.handleStart}/>
+                <Lost handleStart={this.handleStart} handleSameLevel={this.handleSameLevel} totalScore={this.state.confirmedTotalScore}/>
             );
         }
         if (this.state.hasStarted == false) {
@@ -66,7 +103,10 @@ class Game extends React.Component {
             );
         }
         return (
-            <Canvas handleLost={this.handleLost} handleWon={this.handleWon} levelNumber={this.state.levelNumber} />
+            <div id="game-container">
+                <ScoreBar enemies={this.state.enemies} levelScore={this.state.levelScore} totalScore={this.state.totalScore}/>
+                <Canvas handleLost={this.handleLost} handleWon={this.handleWon} handleUpdateScore={this.handleUpdateScore} handleUpdateEnemies={this.handleUpdateEnemies} levelNumber={this.state.levelNumber}/>
+            </div>
         );
 
     }

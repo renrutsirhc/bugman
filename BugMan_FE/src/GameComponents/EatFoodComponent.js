@@ -11,7 +11,7 @@ class EatFoodComponent extends GameComponent {
             let gameObject = this.level.gameObjects[k];
             if (gameObject instanceof Food && gameObject.i == this.owner.i && gameObject.j == this.owner.j) {
                 this.level.gameObjects.splice(k, 1);
-                this.level.score += 1;
+                this.level.updateScore(1);
             }
         }
         if (this.hasWon()) {

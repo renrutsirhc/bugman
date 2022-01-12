@@ -1,0 +1,19 @@
+#scorebar-container {
+    text-align: right;
+    background-image: linear-gradient(#461d63, #702f9e,#461d63);
+    display: flex;
+    justify-content: right;
+    padding: 8px;
+    box-shadow: 0 2px 2px 2px rgba(0,0,0,0.24);
+    z-index: 10;
+    position: relative;
+    margin-bottom: 2px;
+}
+
+.score-text {
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    padding: 0px 4px;
+}

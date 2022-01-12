@@ -1,0 +1,11 @@
+#won-container {
+    padding: 200px 20px 200px 20px;
+}
+
+.score-message {
+    color: white;
+    font-weight: 400;
+    font-size: 14px;
+    padding: 0px 4px;
+    text-align: center;
+}
