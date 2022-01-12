@@ -13,8 +13,9 @@ class Canvas extends React.Component {
             canvasRef: React.createRef(),
             width: 0,
             height: 0,
-            hasWon: false,
-            hasLost: false,
+            handleWon: props.handleWon,
+            handleLost: props.handleLost,
+            levelNumber: props.levelNumber,
         }
 
         this.canvas = null;
@@ -23,8 +24,14 @@ class Canvas extends React.Component {
     }
 
     componentDidMount() {
+        //here we need to fetch the level from the database.
+
+
+
         this.canvas = this.state.canvasRef.current;
         this.ctx = this.canvas.getContext('2d');
+
+        //and pass the level into the level object in the constructor - will need to modify the level object to accept this
         this.level = new Level(this.ctx);
         this.setState({
             width: this.level.width * this.level.squareSize,
@@ -58,35 +65,17 @@ class Canvas extends React.Component {
         this.ctx.restore();
 
         if (this.level.hasWon) {
-            this.setState({
-                hasWon: true
-            });
+            this.state.handleWon();
         }
 
         if (this.level.hasLost) {
-            this.setState({
-                hasLost: true
-            });
+            this.state.handleLost();
         }
     }
 
     render() {
 
-        if (this.state.hasWon) {
-            //has won so return the won screen
-            return (
-                <div id="won-container">
-                    <Won />
-                </div>
-            );
-        }
-        if (this.state.hasLost) {
-            return (
-                <div id="lost-container">
-                    <Lost />
-                </div>
-            );
-        }
+
         return (
             //hasn't won yet so return the canvas
             <div id="canvas-container">
