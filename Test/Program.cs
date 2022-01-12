@@ -7,19 +7,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var AllowPorts = "_allowPorts";
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: AllowPorts,
-        builder =>
-        {
-            builder.WithOrigins("https://localhost:5001", "http://localhost:5000",
-                "https://localhost:3000");
-        });
-});
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,10 +16,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//dissabled https redirection by default due to weird certificate problems and not enough time to investigate them
 //app.UseHttpsRedirection();
-
-app.UseCors(AllowPorts);
 
 app.UseAuthorization();
 

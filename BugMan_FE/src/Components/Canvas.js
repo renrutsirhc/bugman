@@ -38,7 +38,7 @@ class Canvas extends React.Component {
 
     componentDidMount() {
         //here we need to fetch the level from the database.
-        let url = "https://localhost:5001/level?level=" + this.state.levelNumber;
+        let url = "http://localhost:5000/level?level=" + this.state.levelNumber;
         fetch(url)
             .then(async response => {
                 const data = await response.json();

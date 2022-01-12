@@ -7,7 +7,7 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "BugMan_FE", "BugMan_FE\BugM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BugMan_BE", "BugMan_BE\BugMan_BE.csproj", "{4042F410-6323-4AB5-9597-8F1BEB80A6CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BugMan_BE_Tests", "BugMan_BE_Tests\BugMan_BE_Tests.csproj", "{D82FA5F6-7003-4BE5-86B7-F58EC99919B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BugMan_BE_Tests", "BugMan_BE_Tests\BugMan_BE_Tests.csproj", "{D82FA5F6-7003-4BE5-86B7-F58EC99919B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
