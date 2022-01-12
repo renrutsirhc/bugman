@@ -16,6 +16,7 @@ class Canvas extends React.Component {
             handleLost: props.handleLost,
             handleUpdateScore: props.handleUpdateScore,
             handleUpdateEnemies: props.handleUpdateEnemies,
+            handleUpdatePillCountDown: props.handleUpdatePillCountDown,
             levelNumber: props.levelNumber,
             isLoaded: false,
             error: null,
@@ -34,6 +35,10 @@ class Canvas extends React.Component {
 
     handleUpdateEnemies(increment) {
         this.state.handleUpdateEnemies(increment);
+    }
+
+    handleUpdatePillCountDown(increment) {
+        this.state.handleUpdatePillCountDown(increment);
     }
 
     componentDidMount() {

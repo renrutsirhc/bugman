@@ -26,8 +26,9 @@ class EatPillComponent extends GameComponent {
 
             }
         }
+        this.level.updatePillCountDown(Math.floor(this.pillTimer / 10));
         if (this.pillTimer > 0) {
-            this.pillTimer -= 0.1;
+            this.pillTimer -= 0.25;
         } else if (this.pillTimer != -1) {
             this.pillEffectEnd();
         } 
@@ -36,6 +37,7 @@ class EatPillComponent extends GameComponent {
 
     pillEaten() {
         this.pillTimer = 100;
+        
              
         for (let k = 0; k < this.level.gameObjects.length; k++) {
             let gameObject = this.level.gameObjects[k];

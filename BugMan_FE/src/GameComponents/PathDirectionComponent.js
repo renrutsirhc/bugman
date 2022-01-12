@@ -9,11 +9,14 @@ class PathDirectionComponent extends GameComponent {
     }
 
     update() {
-        let rand = Math.random() * 24;
-        rand = Math.trunc(rand);
-        if (rand == 0) {
-            this.getDirection();
-        }      
+        if (this.owner.updateCount == 0) {
+            let rand = Math.random() * 8;
+            rand = Math.trunc(rand);
+            if (rand == 0) {
+                this.getDirection();
+                this.owner.updateCount += 32;
+            }
+        }
     }
 
     getDirection() {

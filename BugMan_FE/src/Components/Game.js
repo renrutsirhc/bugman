@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ScoreBar from './ScoreBar.js';
 import Canvas from './Canvas.js';
+import Complete from './Complete.js';
 import Won from './Won.js';
 import Lost from './Lost.js';
 import Start from './Start.js';
@@ -19,7 +20,8 @@ class Game extends React.Component {
             enemies: 0,
             levelScore: 0,
             totalScore: 0,
-            confirmedTotalScore:0,
+            confirmedTotalScore: 0,
+            pillCountDown: 0,
         }
 
 
@@ -27,10 +29,12 @@ class Game extends React.Component {
         this.handleLost = this.handleLost.bind(this);
         this.handleWon = this.handleWon.bind(this);
         this.handleStart = this.handleStart.bind(this);
+        this.handleReset = this.handleReset.bind(this);
         this.handleSameLevel = this.handleSameLevel.bind(this);
         this.handleNextLevel = this.handleNextLevel.bind(this);
         this.handleUpdateScore = this.handleUpdateScore.bind(this);
         this.handleUpdateEnemies = this.handleUpdateEnemies.bind(this);
+        this.handleUpdatePillCountDown = this.handleUpdatePillCountDown.bind(this);
     }
 
     handleLost() {
@@ -51,6 +55,15 @@ class Game extends React.Component {
             hasStarted: true,
             hasWon: false,
             hasLost: false,
+        })
+    }
+
+    handleReset() {
+        this.setState({
+            levelNumber: 1,
+            totalScore: 0,
+            levelScore: 0,
+            enemies: 0,
         })
     }
 
@@ -83,8 +96,20 @@ class Game extends React.Component {
         }));
     }
 
+    handleUpdatePillCountDown(increment) {
+        this.setState((state) => ({
+            pillCountDown: state.enemies + increment,
+        }));
+    }
+
 
     render() {
+        if (this.state.hasWon && this.state.levelNumber == 3) {
+            return (
+                <Complete handleStart={this.handleStart} handleReset={this.handleReset} levelScore={this.state.levelScore} totalScore={this.state.totalScore} />
+            );
+        }
+
         if (this.state.hasWon) {
             //has won so return the won screen
             return (
@@ -104,8 +129,8 @@ class Game extends React.Component {
         }
         return (
             <div id="game-container">
-                <ScoreBar enemies={this.state.enemies} levelScore={this.state.levelScore} totalScore={this.state.totalScore}/>
-                <Canvas handleLost={this.handleLost} handleWon={this.handleWon} handleUpdateScore={this.handleUpdateScore} handleUpdateEnemies={this.handleUpdateEnemies} levelNumber={this.state.levelNumber}/>
+                <ScoreBar enemies={this.state.enemies} levelScore={this.state.levelScore} totalScore={this.state.totalScore} pillCountDown={this.state.pillCountDown}/>
+                <Canvas handleLost={this.handleLost} handleWon={this.handleWon} handleUpdateScore={this.handleUpdateScore} handleUpdateEnemies={this.handleUpdateEnemies} handleUpdatePillCountDown={this.handleUpdatePillCountDown} levelNumber={this.state.levelNumber}/>
             </div>
         );
 
