@@ -8,84 +8,65 @@ class MoveComponent extends GameComponent{
     }
 
     update() {
-        let interval;
-        let k = 0;
-        if (this.owner.isMoving) {
+        console.log(this.owner.updateCount);
+        if (this.owner.updateCount > 0) {
             switch (this.owner.direction) {
                 case Directions.Left:
                     if (this.canMove()) {
-                        if (this.owner.i - 1 < 0) {
+                        if (this.owner.x - 1 < 0) {
                             //player appears at the other side of the map
-                            this.owner.i = this.level.width - 1;
-                            this.owner.x = this.owner.i * this.level.squareSize;
+                            this.owner.x = (this.level.width - 1) * 32;
+                            this.owner.i = Math.round(this.owner.x / 32);
+                            this.owner.updateCount = 2;
                         } else {
-                            interval = setInterval(() => {
-                                this.owner.x -= 1;
-                                k += 1;
-                                if (k == 32) {
-                                    clearInterval(interval);
-                                }
-                            }, 8)
-                            this.owner.i -= 1;
+                            this.owner.x -= 2;
+                            this.owner.i = Math.round(this.owner.x / 32);
                         }
                     }
                     break;
                 case Directions.Up:
                     if (this.canMove()) {
-                        if (this.owner.j - 1 < 0) {
+                        if (this.owner.y - 1 < 0) {
                             //player appears at the other side of the map
-                            this.owner.j = this.level.height - 1;
-                            this.owner.y = this.owner.j * this.level.squareSize;
+                            this.owner.y = (this.level.height - 1) * 32;
+                            this.owner.j = Math.round(this.owner.y / 32);
+                            this.owner.updateCount = 2;
                         } else {
-                            interval = setInterval(() => {
-                                this.owner.y -= 1;
-                                k += 1;
-                                if (k == 32) {
-                                    clearInterval(interval);
-                                }
-                            }, 8)
-                            this.owner.j -= 1;
+                            this.owner.y -= 2;
+                            this.owner.j = Math.round(this.owner.y / 32);
                         }
                     }
                     break;
                 case Directions.Right:
                     if (this.canMove()) {
-                        if (this.owner.i >= this.level.width -1) {
+                        if (this.owner.x >= (this.level.width - 1) * 32) {
                             //player appears at the other side of the map
-                            this.owner.i = 0;
-                            this.owner.x = this.owner.i * this.level.squareSize;
+                            this.owner.x = 0;
+                            this.owner.i = Math.round(this.owner.x / 32);
+                            this.owner.updateCount = 2;
                         } else {
-                            interval = setInterval(() => {
-                                this.owner.x += 1;
-                                k += 1;
-                                if (k == 32) {
-                                    clearInterval(interval);
-                                }
-                            }, 8)
-                            this.owner.i += 1;
+                            this.owner.x += 2;
+                            this.owner.i = Math.round(this.owner.x / 32);
                         }
                     }
                     break;
                 case Directions.Down:
                     if (this.canMove()) {
-                        if (this.owner.j >= this.level.height - 1) {
+                        if (this.owner.y >= (this.level.height - 1) * 32) {
                             //player appears at the other side of the map
-                            this.owner.j = 0;
-                            this.owner.y = this.owner.j * this.level.squareSize;
+                            this.owner.y = 0;
+                            this.owner.j = Math.round(this.owner.y / 32);
+                            this.owner.updateCount = 2;
                         } else {
-                            interval = setInterval(() => {
-                                this.owner.y += 1;
-                                k += 1;
-                                if (k == 32) {
-                                    clearInterval(interval);
-                                }
-                            }, 8)
-                            this.owner.j += 1;
+                            this.owner.y += 2;
+                            this.owner.j = Math.round(this.owner.y / 32);
                         }
                     }
                     break;
             }
-            this.owner.isMoving = false;
+            this.owner.updateCount -= 2;
+        } else {
+            this.owner.isMoving = false
         }
     }
 
@@ -95,22 +76,22 @@ class MoveComponent extends GameComponent{
             if (gameObject instanceof Wall) {
                 switch (this.owner.direction) {
                     case Directions.Left:
-                        if (gameObject.i == this.owner.i - 1 && gameObject.j == this.owner.j) {
+                        if (gameObject.i == Math.ceil(this.owner.x/32) - 1 && gameObject.j == this.owner.j) {
                             return false;
                         }
                         break;
                     case Directions.Up:
-                        if (gameObject.j == this.owner.j - 1 && gameObject.i == this.owner.i) {
+                        if (gameObject.j == Math.ceil(this.owner.y/32) - 1 && gameObject.i == this.owner.i) {
                             return false;
                         }
                         break;
                     case Directions.Right:
-                        if (gameObject.i == this.owner.i + 1 && gameObject.j == this.owner.j) {
+                        if (gameObject.i == Math.floor(this.owner.x/32) + 1 && gameObject.j == this.owner.j) {
                             return false;
                         }
                         break;
                     case Directions.Down:
-                        if (gameObject.j == this.owner.j + 1 && gameObject.i == this.owner.i) {
+                        if (gameObject.j == Math.floor(this.owner.y/32) + 1 && gameObject.i == this.owner.i) {
                             return false;
                         }
                         break;

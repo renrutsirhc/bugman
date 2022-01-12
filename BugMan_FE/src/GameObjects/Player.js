@@ -1,5 +1,6 @@
 import Directions from '../Constants/Constants.js'
 import GameObject from './GameObject.js'
+import Wall from './Wall.js'
 import MoveComponent from '../GameComponents/MoveComponent.js'
 import EatFoodComponent from '../GameComponents/EatFoodComponent.js'
 import EatPillComponent from '../GameComponents/EatPillComponent.js'
@@ -19,40 +20,71 @@ class Player extends GameObject{
 
 
     handleKeyDown = (event) => {
-        let interval;
-        let k = 0;
-        switch (event.keyCode) {
-            case 37:
-            case 65:
-                //left
-                this.direction = Directions.Left;
-                this.isMoving = true;
-                break;
-            case 38:
-            case 87:
-                //up
-                this.direction = Directions.Up;
-                this.isMoving = true;
-                break;
-            case 39:
-            case 68:
-                //right
-                this.direction = Directions.Right;
-                this.isMoving = true;
-                break;
-            case 40:
-            case 83:
-                //down
-                this.direction = Directions.Down;
-                this.isMoving = true;
-                break;
-        };
+        if (!this.isMoving && this.updateCount == 0) {
+            switch (event.keyCode) {
+                case 37:
+                case 65:
+                    //left
+                    this.direction = Directions.Left;
+                    this.isMoving = true;
+                    break;
+                case 38:
+                case 87:
+                    //up
+                    this.direction = Directions.Up;
+                    this.isMoving = true;
+                    break;
+                case 39:
+                case 68:
+                    //right
+                    this.direction = Directions.Right;
+                    this.isMoving = true;
+                    break;
+                case 40:
+                case 83:
+                    //down
+                    this.direction = Directions.Down;
+                    this.isMoving = true;
+                    break;
+            };
+            if (this.canMove()) {
+                this.updateCount = 32;
+            }
+        }
 
+        
         console.log("X: " + this.x + " Y: " + this.y);
     }
 
-    handleKeyUp = (event) => {
-        this.isMoving = false;
+    canMove() {
+        for (let k = 0; k < this.level.gameObjects.length; k++) {
+            let gameObject = this.level.gameObjects[k];
+            if (gameObject instanceof Wall) {
+                switch (this.direction) {
+                    case Directions.Left:
+                        if (gameObject.i == Math.ceil(this.x / 32) - 1 && gameObject.j == this.j) {
+                            return false;
+                        }
+                        break;
+                    case Directions.Up:
+                        if (gameObject.j == Math.ceil(this.y / 32) - 1 && gameObject.i == this.i) {
+                            return false;
+                        }
+                        break;
+                    case Directions.Right:
+                        if (gameObject.i == Math.floor(this.x / 32) + 1 && gameObject.j == this.j) {
+                            return false;
+                        }
+                        break;
+                    case Directions.Down:
+                        if (gameObject.j == Math.floor(this.y / 32) + 1 && gameObject.i == this.i) {
+                            return false;
+                        }
+                        break;
+                }
+            }
+        }
+        return true;
     }
 
 

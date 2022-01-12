@@ -14,6 +14,7 @@ class GameObject {
         this.components = [];
         this.direction = Directions.Up;
         this.isMoving = false;
+        this.updateCount = 0;
     }
 
     setId() {
