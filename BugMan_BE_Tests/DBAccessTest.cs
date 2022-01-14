@@ -12,7 +12,7 @@ namespace BugMan_BE_Tests
             var level = DBAccess.getLevel(1);
             Assert.IsNotNull(level);
             Assert.AreEqual(1, level.LevelNumber);
-            Assert.AreEqual(19, level.Width);
+            Assert.AreEqual(13, level.Width);
         }
     }
 }

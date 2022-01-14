@@ -20,6 +20,7 @@ class Player extends GameObject{
 
 
     handleKeyDown = (event) => {
+        event.preventDefault();
         if (!this.isMoving && this.updateCount == 0) {
             switch (event.keyCode) {
                 case 37:
