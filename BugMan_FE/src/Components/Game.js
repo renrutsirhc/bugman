@@ -55,6 +55,7 @@ class Game extends React.Component {
             hasStarted: true,
             hasWon: false,
             hasLost: false,
+            pillCountDown: 0,
         })
     }
 
@@ -98,7 +99,7 @@ class Game extends React.Component {
 
     handleUpdatePillCountDown(increment) {
         this.setState((state) => ({
-            pillCountDown: state.enemies + increment,
+            pillCountDown: increment,
         }));
     }
 
@@ -106,25 +107,33 @@ class Game extends React.Component {
     render() {
         if (this.state.hasWon && this.state.levelNumber == 3) {
             return (
-                <Complete handleStart={this.handleStart} handleReset={this.handleReset} levelScore={this.state.levelScore} totalScore={this.state.totalScore} />
+                <div id="game-container">
+                    <Complete handleStart={this.handleStart} handleReset={this.handleReset} levelScore={this.state.levelScore} totalScore={this.state.totalScore} />
+                </div>
             );
         }
 
         if (this.state.hasWon) {
             //has won so return the won screen
             return (
-                <Won handleStart={this.handleStart} handleNextLevel={this.handleNextLevel} levelScore={this.state.levelScore} totalScore={this.state.totalScore} />
+                <div id="game-container">
+                    <Won handleStart={this.handleStart} handleNextLevel={this.handleNextLevel} levelScore={this.state.levelScore} totalScore={this.state.totalScore} />
+                </div>
             );
         }
         if (this.state.hasLost) {
             return (
-                <Lost handleStart={this.handleStart} handleSameLevel={this.handleSameLevel} totalScore={this.state.confirmedTotalScore}/>
+                <div id="game-container">
+                    <Lost handleStart={this.handleStart} handleSameLevel={this.handleSameLevel} totalScore={this.state.confirmedTotalScore} />
+                </div>
             );
         }
         if (this.state.hasStarted == false) {
             //game not started yet so show welcome screen
             return (
-                <Start handleStart={this.handleStart} />
+                <div id="game-container">
+                    <Start handleStart={this.handleStart} />
+                </div>
             );
         }
         return (

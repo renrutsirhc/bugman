@@ -12,7 +12,7 @@ class Start extends React.Component {
     render() {
         return (
             <div id="start-container">
-                <h1 id="start-message">Welcome to Bugman!</h1>
+                <h1 id="start-message">Welcome to Bug Man!</h1>
                 <button id="start-button" onClick={this.state.handleStart}>Play</button>
             </div>
         );
